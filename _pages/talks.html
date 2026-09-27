@@ -14,3 +14,5 @@ author_profile: true
 {% for post in site.talks reversed %}
   {% include archive-single-talk.html %}
 {% endfor %}
+
+{% if site.talks.size == 0 %}<p class="coming-soon"><em>No talks yet.</em></p>{% endif %}

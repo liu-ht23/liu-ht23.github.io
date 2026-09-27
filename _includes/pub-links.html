@@ -1,0 +1,12 @@
+{%- comment -%}
+Buttons for a publication `include.pub`: external links, then Abstract / BibTeX toggles (al-folio convention).
+The toggles open the matching .pub-panel rendered by pub-card.html; behaviour lives in pub-card-style.html.
+{%- endcomment -%}
+{%- assign p = include.pub -%}
+<div class="pub-links">
+{%- if p.paperurl %}<a href="{{ p.paperurl }}">Paper</a>{% endif -%}
+{%- if p.project %}<a href="{{ p.project }}">Project Page</a>{% endif -%}
+{%- if p.code %}<a href="{{ p.code }}">Code</a>{% endif -%}
+{%- if p.abstract %}<a href="#" class="pub-toggle" data-panel="abstract" role="button" aria-expanded="false">Abstract</a>{% endif -%}
+{%- if p.bibtex %}<a href="#" class="pub-toggle" data-panel="bibtex" role="button" aria-expanded="false">BibTeX</a>{% endif -%}
+</div>

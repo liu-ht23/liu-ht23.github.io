@@ -5,32 +5,20 @@ permalink: /publications/
 author_profile: true
 ---
 
+{% include base_path %}
+{% include pub-card-style.html %}
+
 {% if site.author.googlescholar %}
   <div class="wordwrap">You can also find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
 {% endif %}
 
-{% include base_path %}
+{%- comment -%} All publications as cards, newest year first; cards come from _includes/pub-card.html. {%- endcomment -%}
+{% assign pubs = site.publications | sort: "date" | reverse %}
+{% assign current_year = "" %}
+{% for pub in pubs %}
+{% assign year = pub.date | date: "%Y" %}
+{% if year != current_year %}<h2 class="pub-year">{{ year }}</h2>{% assign current_year = year %}{% endif %}
+{% include pub-card.html pub=pub %}
+{% endfor %}
 
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html %}
-    {% endfor %}
-  {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
-    {% include archive-single.html %}
-  {% endfor %}
-{% endif %}
-
-
-
+<div class="pub-note">* Joint first authors / equal contribution &nbsp;·&nbsp; † Project lead</div>

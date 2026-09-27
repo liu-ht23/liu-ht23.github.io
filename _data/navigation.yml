@@ -6,28 +6,33 @@
 #
 # NOTE that only one of the CV options should be selected, the first is for the
 #      Markdown formatted page while the second is generated using JSON.
+#
+# The Guide (template docs) and the JSON CV are commented out. To enable one later:
+#   1. uncomment its two lines below;
+#   2. remove "published: false" from its page in _pages/ (e.g. _pages/talks.html)
+#      and from the example files in its folder (e.g. _talks/), or replace them with your own.
 
 main:
   - title: "Publications"
     url: /publications/
 
   - title: "Talks"
-    url: /talks/    
+    url: /talks/
 
   - title: "Teaching"
-    url: /teaching/    
-    
+    url: /teaching/
+
   - title: "Portfolio"
     url: /portfolio/
-        
+
   - title: "Blog Posts"
     url: /year-archive/
-    
+
   - title: "CV"
     url: /cv/
-    
+
   # - title: "CV"
   #   url: /cv-json/
-    
-  - title: "Guide"
-    url: /markdown/
+
+  # - title: "Guide"
+  #   url: /markdown/

@@ -1,0 +1,32 @@
+{%- comment -%}
+One publication card, rendered from a _publications/*.md entry passed as `pub`.
+Front-matter fields used: title, authors (HTML, owner in <b>), venue_display (falls back to venue), accepted,
+video / teaser / short (media, in that order of preference), paperurl, project, code, abstract, bibtex.
+The title links to the project page, else the paper. Lines stay unindented so kramdown in about.md keeps
+this as one HTML block.
+{%- endcomment -%}
+{%- assign p = include.pub -%}
+{%- assign title_link = p.project | default: p.paperurl -%}
+<div class="pub">
+<div class="pub-media">
+{%- if p.video -%}
+<video src="{{ p.video | relative_url }}"{% if p.teaser %} poster="{{ p.teaser | relative_url }}"{% endif %} autoplay muted loop playsinline preload="metadata"></video>
+{%- elsif p.teaser -%}
+<img src="{{ p.teaser | relative_url }}" alt="{{ p.title | escape }}">
+{%- else -%}
+<div class="pub-ph">{{ p.short | default: "Paper" }}</div>
+{%- endif -%}
+</div>
+<div class="pub-body">
+<div class="pub-title">{% if title_link %}<a href="{{ title_link }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</div>
+<div class="pub-authors">{{ p.authors }}</div>
+<div class="pub-venue{% if p.accepted %} accepted{% endif %}">{{ p.venue_display | default: p.venue }}</div>
+{% include pub-links.html pub=p %}
+{%- if p.abstract %}
+<div class="pub-panel" data-panel="abstract" hidden>{{ p.abstract | strip | escape }}</div>
+{%- endif -%}
+{%- if p.bibtex %}
+<div class="pub-panel" data-panel="bibtex" hidden><a href="#" class="pub-copy" role="button">Copy</a><pre class="pub-bibtex">{{ p.bibtex | strip | escape }}</pre></div>
+{%- endif %}
+</div>
+</div>
